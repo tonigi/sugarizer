@@ -1,0 +1,18 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+body {
+        height: 100vh;
+}
+
+#hangman {
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: 20px;
+}
+
+#letter-input {
+  width: 40px;
+  text-align: center;
+}
