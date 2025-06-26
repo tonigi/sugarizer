@@ -1,6 +1,21 @@
 define(["sugar-web/activity/activity"], function (activity) {
 
-        var words = ["SUGAR", "LEARNING", "HANGMAN", "COMPUTER", "JAVASCRIPT"];
+        var words = [];
+        var word, guessed, attempts;
+
+        function loadWords(callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'words.txt', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    words = xhr.responseText.split('\n').filter(function(word) { return word.length > 0; });
+                    callback();
+                }
+            };
+            xhr.send();
+        }
+
+
         var word, guessed, attempts;
 
         function updateDisplay() {
@@ -47,7 +62,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 window.addEventListener('keydown', function(e) {
                         guess(e.key);
                 });
-                newGame();
+                loadWords(newGame);
         });
 
 });
