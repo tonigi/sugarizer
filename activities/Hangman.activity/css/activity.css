@@ -12,8 +12,12 @@ body {
 
 #hangman {
   text-align: center;
-  font-size: 1.5em;
+  font-size: 5em;
   margin-top: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #letter-input {
