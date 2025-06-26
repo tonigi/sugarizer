@@ -2,6 +2,10 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #new-btn {
+  background-image: url(../../../icons/system-restart.svg);
+}
+
 body {
         height: 100vh;
 }
