@@ -29,3 +29,11 @@ body {
   font-size: 0.5em;
   color: blue;
 }
+
+#status.win {
+  color: green;
+}
+
+#status.lose {
+  color: red;
+}

@@ -12,10 +12,13 @@ define(["sugar-web/activity/activity"], function (activity) {
         }
 
         function checkResult() {
+                var status = document.getElementById('status');
                 if (word.split('').every(function(ch){ return guessed.indexOf(ch) !== -1; })) {
-                        document.getElementById('status').textContent = 'You win!';
+                        status.textContent = 'You win! 😊';
+                        status.className = 'win';
                 } else if (attempts <= 0) {
-                        document.getElementById('status').textContent = 'Game over: ' + word;
+                        status.textContent = 'Game over: ' + word + ' 😞';
+                        status.className = 'lose';
                 }
         }
 
@@ -23,7 +26,9 @@ define(["sugar-web/activity/activity"], function (activity) {
                 word = words[Math.floor(Math.random()*words.length)];
                 guessed = [];
                 attempts = 6;
-                document.getElementById('status').textContent = '';
+                var status = document.getElementById('status');
+                status.textContent = '';
+                status.className = '';
                 updateDisplay();
         }
 
