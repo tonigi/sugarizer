@@ -24,15 +24,12 @@ define(["sugar-web/activity/activity"], function (activity) {
                 guessed = [];
                 attempts = 6;
                 document.getElementById('status').textContent = '';
-                document.getElementById('letter-input').value = '';
                 updateDisplay();
         }
 
-        function guess() {
-                var input = document.getElementById('letter-input');
-                var letter = input.value.trim().toUpperCase();
-                input.value = '';
-                if (!letter || guessed.indexOf(letter) !== -1) return;
+        function guess(letter) {
+                letter = letter.toUpperCase();
+                if (!letter.match(/^[A-Z]$/) || guessed.indexOf(letter) !== -1) return;
                 guessed.push(letter);
                 if (word.indexOf(letter) === -1) attempts--;
                 updateDisplay();
@@ -41,10 +38,9 @@ define(["sugar-web/activity/activity"], function (activity) {
 
         requirejs(['domReady!'], function () {
                 activity.setup();
-                document.getElementById('guess-btn').addEventListener('click', guess);
                 document.getElementById('new-btn').addEventListener('click', newGame);
-                document.getElementById('letter-input').addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter') guess();
+                window.addEventListener('keydown', function(e) {
+                        guess(e.key);
                 });
                 newGame();
         });
