@@ -24,3 +24,8 @@ body {
   width: 40px;
   text-align: center;
 }
+
+#used-letters {
+  font-size: 0.5em;
+  color: blue;
+}
