@@ -4,11 +4,15 @@ define(["sugar-web/activity/activity"], function (activity) {
         var word, guessed, attempts;
 
         function loadWords(callback) {
+            var lang = (navigator.language || 'en').substr(0,2).toLowerCase();
+            var file = (lang === 'it') ? 'words_it.txt' : 'words_en.txt';
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'words.txt', true);
+            xhr.open('GET', file, true);
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    words = xhr.responseText.split('\n').filter(function(word) { return word.length > 0; });
+                    words = xhr.responseText.split('\n').filter(function(word) {
+                        return word.length > 0;
+                    });
                     callback();
                 }
             };
