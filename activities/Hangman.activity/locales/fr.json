@@ -1,0 +1,5 @@
+{
+    "NewGame": "Nouvelle partie",
+    "YouWin": "Vous avez gagné",
+    "GameOver": "Partie terminée : {{word}}"
+}

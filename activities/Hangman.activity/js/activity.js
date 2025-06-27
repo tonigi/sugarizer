@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity", "sugar-web/env", "activity/speech", "l10n"], function (activity, env, speech, l10n) {
 
         var words = [];
         var word, guessed, attempts;
@@ -33,11 +33,13 @@ define(["sugar-web/activity/activity"], function (activity) {
         function checkResult() {
                 var status = document.getElementById('status');
                 if (word.split('').every(function(ch){ return guessed.indexOf(ch) !== -1; })) {
-                        status.textContent = 'You win! 😊';
+                        status.textContent = l10n.get('YouWin') + ' 😊';
                         status.className = 'win';
+                        speech.speak(l10n.get('YouWin'));
                 } else if (attempts <= 0) {
-                        status.textContent = 'Game over: ' + word + ' 😞';
+                        status.textContent = l10n.get('GameOver', {word: word}) + ' 😞';
                         status.className = 'lose';
+                        speech.speak(l10n.get('GameOver', {word: word}));
                 }
         }
 
@@ -49,6 +51,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 status.textContent = '';
                 status.className = '';
                 updateDisplay();
+                speech.speak(l10n.get('NewGame'));
         }
 
         function guess(letter) {
@@ -56,12 +59,18 @@ define(["sugar-web/activity/activity"], function (activity) {
                 if (!letter.match(/^[A-Z]$/) || guessed.indexOf(letter) !== -1) return;
                 guessed.push(letter);
                 if (word.indexOf(letter) === -1) attempts--;
+                speech.speak(letter);
                 updateDisplay();
                 checkResult();
         }
 
         requirejs(['domReady!'], function () {
                 activity.setup();
+                env.getEnvironment(function(err, environment) {
+                        var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+                        var language = environment.user ? environment.user.language : defaultLanguage;
+                        l10n.init(language);
+                });
                 document.getElementById('new-btn').addEventListener('click', newGame);
                 window.addEventListener('keydown', function(e) {
                         guess(e.key);
