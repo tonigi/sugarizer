@@ -53,7 +53,7 @@ define(["sugar-web/activity/activity", "activity/speech"], function (activity, s
                 status.textContent = '';
                 status.className = '';
                 updateDisplay();
-                speech.speak('New game');
+                speech.speak(word);
         }
 
         function guess(letter) {
@@ -69,6 +69,9 @@ define(["sugar-web/activity/activity", "activity/speech"], function (activity, s
         requirejs(['domReady!'], function () {
                 activity.setup();
                 document.getElementById('new-btn').addEventListener('click', newGame);
+                document.getElementById('respeak-btn').addEventListener('click', function() {
+                  speech.speak(word);
+                });
                 window.addEventListener('keydown', function(e) {
                         guess(e.key);
                 });

@@ -2,8 +2,12 @@
   background-image: url(../activity/activity-icon.svg);
 }
 
-#main-toolbar #new-btn {
-  background-image: url(../../../icons/system-restart.svg);
+#new-btn {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/activity-abecedarium.svg);
+}
+
+#respeak-btn {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-groups.svg);
 }
 
 body {
