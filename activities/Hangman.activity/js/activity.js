@@ -36,10 +36,12 @@ define(["sugar-web/activity/activity", "activity/speech"], function (activity, s
                         status.textContent = 'You win! 😊';
                         status.className = 'win';
                         speech.speak('You win');
+                        new Audio('audio/applause.mp3').play();
                 } else if (attempts <= 0) {
                         status.textContent = 'Game over: ' + word + ' 😞';
                         status.className = 'lose';
                         speech.speak('Game over ' + word);
+                        new Audio('audio/disappointed.mp3').play();
                 }
         }
 
