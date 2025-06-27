@@ -10,8 +10,10 @@ define(["sugar-web/activity/activity"], function (activity) {
         var timer = null;
         var progressTimer = null;
         var currentLetter = '';
+        var waitingForNextRound = false;
 
         function startRound() {
+            waitingForNextRound = false;
             messageElem.textContent = '';
             messageElem.className = '';
             currentLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
@@ -44,10 +46,16 @@ define(["sugar-web/activity/activity"], function (activity) {
                 messageElem.textContent = 'Try again';
                 messageElem.className = 'fail';
             }
-            setTimeout(startRound, 1000);
+            waitingForNextRound = true;
+            currentLetter = '';
+            messageElem.textContent += ' Press any key to start again.';
         }
 
         document.addEventListener('keydown', function(event) {
+            if (waitingForNextRound) {
+                startRound();
+                return;
+            }
             if (!currentLetter) return;
             var key = event.key.toUpperCase();
             if (key === currentLetter) {
