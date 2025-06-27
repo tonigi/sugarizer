@@ -40,9 +40,11 @@ define(["sugar-web/activity/activity"], function (activity) {
             clearTimeout(timer);
             clearInterval(progressTimer);
             if (success) {
+                new Audio('audio/applause.mp3').play();
                 messageElem.textContent = 'Great!';
                 messageElem.className = 'success';
             } else {
+                new Audio('audio/disappointed.mp3').play();
                 messageElem.textContent = 'Try again';
                 messageElem.className = 'fail';
             }
