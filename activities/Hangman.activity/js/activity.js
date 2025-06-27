@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity", "activity/speech"], function (activity, speech) {
 
         var words = [];
         var word, guessed, attempts;
@@ -35,9 +35,11 @@ define(["sugar-web/activity/activity"], function (activity) {
                 if (word.split('').every(function(ch){ return guessed.indexOf(ch) !== -1; })) {
                         status.textContent = 'You win! 😊';
                         status.className = 'win';
+                        speech.speak('You win');
                 } else if (attempts <= 0) {
                         status.textContent = 'Game over: ' + word + ' 😞';
                         status.className = 'lose';
+                        speech.speak('Game over ' + word);
                 }
         }
 
@@ -49,6 +51,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 status.textContent = '';
                 status.className = '';
                 updateDisplay();
+                speech.speak('New game');
         }
 
         function guess(letter) {
@@ -56,6 +59,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 if (!letter.match(/^[A-Z]$/) || guessed.indexOf(letter) !== -1) return;
                 guessed.push(letter);
                 if (word.indexOf(letter) === -1) attempts--;
+                speech.speak(letter);
                 updateDisplay();
                 checkResult();
         }
