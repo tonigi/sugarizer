@@ -27,13 +27,13 @@ jobs:
           ./make_electron.sh linux
 
       - name: Upload Debian package
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: sugarizer-deb
           path: sugarizer-electron/**/*.deb
 
       - name: Upload AppImage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: sugarizer-appimage
           path: sugarizer-electron/**/*.AppImage
