@@ -1,0 +1,38 @@
+name: Build Electron Packages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-electron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sugarizer
+        uses: actions/checkout@v3
+        with:
+          path: sugarizer
+
+      - name: Checkout sugarizer-electron
+        uses: actions/checkout@v3
+        with:
+          repository: llaske/sugarizer-electron
+          path: sugarizer-electron
+
+      - name: Build electron packages
+        run: |
+          cd sugarizer-electron
+          chmod +x ./make_electron.sh
+          ./make_electron.sh linux
+
+      - name: Upload Debian package
+        uses: actions/upload-artifact@v3
+        with:
+          name: sugarizer-deb
+          path: sugarizer-electron/**/*.deb
+
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v3
+        with:
+          name: sugarizer-appimage
+          path: sugarizer-electron/**/*.AppImage
+
