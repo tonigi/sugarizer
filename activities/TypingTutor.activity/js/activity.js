@@ -6,7 +6,7 @@ define(["sugar-web/activity/activity"], function (activity) {
         var progressElem = document.getElementById('progress');
         var messageElem = document.getElementById('message');
 
-        var duration = 3000; // ms
+        var duration = 6000; // ms
         var timer = null;
         var progressTimer = null;
         var currentLetter = '';
