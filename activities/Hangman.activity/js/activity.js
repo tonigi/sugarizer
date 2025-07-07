@@ -53,7 +53,7 @@ define(["sugar-web/activity/activity", "activity/speech"], function (activity, s
                 status.textContent = '';
                 status.className = '';
                 updateDisplay();
-                speech.speak("La parola da scrivere è: "+word+", "+word);
+                speech.speak("La parola da scrivere è: "+word+". "+word);
         }
 
         function guess(letter) {
