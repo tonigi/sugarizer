@@ -53,7 +53,7 @@ define(["sugar-web/activity/activity", "activity/speech"], function (activity, s
                 status.textContent = '';
                 status.className = '';
                 updateDisplay();
-                speech.speak(word);
+                speech.speak("La parola da scrivere è: "+word+", "+word);
         }
 
         function guess(letter) {
@@ -71,6 +71,10 @@ define(["sugar-web/activity/activity", "activity/speech"], function (activity, s
                 document.getElementById('new-btn').addEventListener('click', newGame);
                 document.getElementById('respeak-btn').addEventListener('click', function() {
                   speech.speak(word);
+                });
+                document.getElementById('espeak-btn').addEventListener('click', function() {
+                  var espeakOn = speech.toggleEngine();
+                  document.getElementById('espeak-btn').style.backgroundColor = espeakOn ? '#f00' : '#fff';
                 });
                 window.addEventListener('keydown', function(e) {
                         guess(e.key);

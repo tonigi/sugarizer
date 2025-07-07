@@ -10,6 +10,10 @@
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-groups.svg);
 }
 
+#espeak-btn {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/dialog-ok.svg);
+}
+
 body {
         height: 100vh;
 }
