@@ -710,6 +710,73 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             return find(this.x, this.y, direction, true);
         }
 
+        Player.prototype.findPathTo = function (targetX, targetY) {
+            if (this.x === targetX && this.y === targetY) {
+                return [];
+            }
+
+            var visited = createMatrix(maze.width, maze.height);
+            var previous = createMatrix(maze.width, maze.height);
+            var queue = [{'x': this.x, 'y': this.y}];
+            visited[this.x][this.y] = 1;
+
+            while (queue.length > 0) {
+                var current = queue.shift();
+                if (current.x === targetX && current.y === targetY) {
+                    break;
+                }
+
+                for (var i = 0; i < directions.orders.length; i++) {
+                    var dir = directions.orders[i];
+                    var dirIndex = directions[dir];
+                    if (maze.directions[current.x][current.y][dirIndex] !== 1) {
+                        continue;
+                    }
+
+                    var nextX = current.x;
+                    var nextY = current.y;
+                    if (dir === 'north') {
+                        nextY -= 1;
+                    } else if (dir === 'east') {
+                        nextX += 1;
+                    } else if (dir === 'south') {
+                        nextY += 1;
+                    } else if (dir === 'west') {
+                        nextX -= 1;
+                    }
+
+                    if (nextX < 0 || nextX >= maze.width || nextY < 0 || nextY >= maze.height) {
+                        continue;
+                    }
+                    if (visited[nextX][nextY] === 1) {
+                        continue;
+                    }
+
+                    visited[nextX][nextY] = 1;
+                    previous[nextX][nextY] = {'x': current.x, 'y': current.y, 'direction': dir};
+                    queue.push({'x': nextX, 'y': nextY});
+                }
+            }
+
+            if (visited[targetX][targetY] !== 1) {
+                return null;
+            }
+
+            var path = [];
+            var x = targetX;
+            var y = targetY;
+            while (!(x === this.x && y === this.y)) {
+                var step = previous[x][y];
+                if (!step) {
+                    return null;
+                }
+                path.unshift(step.direction);
+                x = step.x;
+                y = step.y;
+            }
+            return path;
+        };
+
         Player.prototype.stop = function () {
             clearInterval(this.animation);
             this.animation = undefined;
@@ -745,16 +812,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             audio.play();
         }
 
-        Player.prototype.move = function (direction) {
-            if (this.isMoving()) {
-                return
-            }
-
-            if (!(this.canGo(direction))) {
-                this.showBlocked();
-                return;
-            }
-
+        Player.prototype.startPath = function (path) {
             var that = this;
 
             var next = function () {
@@ -787,8 +845,35 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                 }
             }
 
-            this.path = this.findPath(direction);
+            this.path = path;
             this.animation = setInterval(next, 40);
+        };
+
+        Player.prototype.move = function (direction) {
+            if (this.isMoving()) {
+                return
+            }
+
+            if (!(this.canGo(direction))) {
+                this.showBlocked();
+                return;
+            }
+            this.startPath(this.findPath(direction));
+        };
+
+        Player.prototype.moveTo = function (targetX, targetY) {
+            if (this.isMoving()) {
+                return;
+            }
+            var path = this.findPathTo(targetX, targetY);
+            if (path === null) {
+                this.showBlocked();
+                return;
+            }
+            if (path.length === 0) {
+                return;
+            }
+            this.startPath(path);
         };
 
         var mazeClick = function (event) {
@@ -809,27 +894,21 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 
             var player = players[currentControl];
 
-            var px = cellWidth * (player.x + 0.5);
-            var py = cellHeight * (player.y + 0.5);
-
-            var x = event.clientX;
-            var y = event.clientY;
-
             var canvas = document.getElementById("maze");
-            x -= canvas.offsetLeft;
-            y -= canvas.offsetTop;
+            var rect = canvas.getBoundingClientRect();
+            var x = event.clientX - rect.left;
+            var y = event.clientY - rect.top;
+            var targetX = Math.floor(x / cellWidth);
+            var targetY = Math.floor(y / cellHeight);
 
-            var angle = Math.atan2(y - py, x - px) * 180 / Math.PI;
-
-            if (45 < angle && angle < 135) {
-                    player.move('south');
-            } else if (-45 > angle && angle > -135) {
-                    player.move('north');
-            } else if (-45 < angle && angle < 45) {
-                    player.move('east');
-            } else {
-                    player.move('west');
+            if (targetX < 0 || targetX >= maze.width || targetY < 0 || targetY >= maze.height) {
+                return;
             }
+            if (maze.walls[targetX][targetY] === 1) {
+                player.showBlocked();
+                return;
+            }
+            player.moveTo(targetX, targetY);
         };
 
         if (mazeCanvas.addEventListener) {
