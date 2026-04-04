@@ -1,0 +1,47 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#new-btn {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/activity-abecedarium.svg);
+}
+
+#respeak-btn {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-groups.svg);
+}
+
+#espeak-btn {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/dialog-ok.svg);
+}
+
+body {
+        height: 100vh;
+}
+
+#hangman {
+  text-align: center;
+  font-size: 5em;
+  margin-top: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#letter-input {
+  width: 40px;
+  text-align: center;
+}
+
+#used-letters {
+  font-size: 0.5em;
+  color: blue;
+}
+
+#status.win {
+  color: green;
+}
+
+#status.lose {
+  color: red;
+}

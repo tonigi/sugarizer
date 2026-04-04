@@ -1,0 +1,40 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+body {
+  height: 100vh;
+}
+
+#letter {
+  font-size: 10em;
+  text-align: center;
+  margin-top: 40px;
+}
+
+#progress-container {
+  width: 80%;
+  height: 20px;
+  border: 1px solid #ccc;
+  margin: 20px auto;
+}
+
+#progress {
+  height: 100%;
+  background-color: #4285f4;
+  width: 100%;
+}
+
+#message {
+  text-align: center;
+  font-size: 2em;
+  margin-top: 20px;
+}
+
+.success {
+  color: green;
+}
+
+.fail {
+  color: red;
+}
