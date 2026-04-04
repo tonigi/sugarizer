@@ -148,6 +148,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 
         var controlColors = {};
         var controlSprites = {};
+        var localPlayerControl = null;
 
         var players = {};
         var winner;
@@ -389,6 +390,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 
         var onLevelStart = function () {
             levelStatus = 'starting';
+            localPlayerControl = null;
 
             tween = new TWEEN.Tween({t: 0});
             tween.to({t: 1}, 900);
@@ -634,6 +636,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             ended=false;
             oponentEnded=0;
             players = {};
+            localPlayerControl = null;
             winner = undefined;
             onLevelStart();
 
@@ -794,6 +797,11 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             }
 
             var currentControl = 'mouse'
+            if (localPlayerControl === null) {
+                localPlayerControl = currentControl;
+            } else if (localPlayerControl !== currentControl) {
+                return;
+            }
 
             if (!(currentControl in players)) {
                 players[currentControl] = new Player(currentControl);
@@ -845,6 +853,11 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                 }
             }
             if (currentControl === undefined) {
+                return;
+            }
+            if (localPlayerControl === null) {
+                localPlayerControl = currentControl;
+            } else if (localPlayerControl !== currentControl) {
                 return;
             }
 
