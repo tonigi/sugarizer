@@ -153,9 +153,12 @@ const ChartView = {
 			app.classList.remove("fullscreen");
 			this.chart.resize();
 
+			let safeTitle = this.activityTitle;
+			if (safeTitle.endsWith(".csv")) safeTitle = safeTitle.slice(0, -4);
+			
 			const metadata = {
 				mimetype: mimetype,
-				title: this.activityTitle,
+				title: safeTitle,
 				activity: "org.olpcfrance.MediaViewerActivity",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -253,11 +256,26 @@ const ChartView = {
 					x: {
 						...this.chartOptions.scales.x,
 						beginAtZero: true,
+						title: {
+							...this.chartOptions.scales.x.title,
+							text: this.pref.labels.y,
+						},
 						grid: {
-							color: (ctx) => (ctx.tick && ctx.tick.value === 0 ? "rgb(50,50,50)" : "rgb(240,240,240)"),
+							color: (ctx) => (
+								ctx.tick && ctx.tick.value === 0
+									? "rgb(50,50,50)"
+									: "rgb(240,240,240)"
+							),
 						},
 					},
-					y: { ...this.chartOptions.scales.y, offset: true },
+					y: {
+						...this.chartOptions.scales.y,
+						offset: true,
+						title: {
+							...this.chartOptions.scales.y.title,
+							text: this.pref.labels.x,
+						},
+					},
 				},
 			};
 		},
