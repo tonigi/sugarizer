@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>Voice Debug</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<script data-main="js/loader" src="lib/require.js"></script>
+<script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="Voice Debug"></button>
+  <button class="toolbutton" id="refresh-button" title="Reload voices"></button>
+  <button class="toolbutton" id="cancel-button" title="Stop speaking"></button>
+  <button class="toolbutton" id="copy-button" title="Copy report"></button>
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<div id="canvas">
+  <section class="panel">
+    <h2>Test</h2>
+    <textarea id="text" rows="2">The quick brown fox jumps over the lazy dog.</textarea>
+    <div class="controls">
+      <label>Language filter <input id="lang-filter" type="text" size="8" placeholder="e.g. it, en-US"></label>
+      <label>Rate <input id="rate" type="range" min="0.1" max="2" step="0.1" value="1"> <output id="rate-out">1</output></label>
+      <label>Pitch <input id="pitch" type="range" min="0" max="2" step="0.1" value="1"> <output id="pitch-out">1</output></label>
+      <label>Volume <input id="volume" type="range" min="0" max="1" step="0.1" value="1"> <output id="volume-out">1</output></label>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Environment</h2>
+    <table id="env"></table>
+  </section>
+
+  <section class="panel">
+    <h2>Voices <span id="voice-count"></span></h2>
+    <table id="voices">
+      <thead>
+        <tr><th></th><th>Name</th><th>Lang</th><th>Local</th><th>Default</th><th>voiceURI</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p id="no-voices" class="warn" hidden>No voices reported by this browser/runtime. On Linux, install speech-dispatcher and an engine module, then restart.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Event log</h2>
+    <pre id="log"></pre>
+  </section>
+</div>
+</body>
+
+</html>
