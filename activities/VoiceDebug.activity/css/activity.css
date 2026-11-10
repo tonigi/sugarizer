@@ -1,0 +1,105 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #refresh-button {
+  background-image: url(../icons/refresh.svg);
+}
+
+#main-toolbar #cancel-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/dialog-cancel.svg);
+}
+
+#main-toolbar #copy-button {
+  background-image: url(../icons/copy.svg);
+}
+
+body {
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+#canvas {
+  padding: 8px 12px;
+  box-sizing: border-box;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 6px;
+  padding: 6px 12px 10px;
+  margin-bottom: 10px;
+}
+
+.panel h2 {
+  font-size: 12pt;
+  margin: 4px 0 8px;
+}
+
+#text {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 12pt;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 8px;
+  align-items: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 10pt;
+}
+
+th, td {
+  text-align: left;
+  padding: 3px 6px;
+  border-bottom: 1px solid #e0e0e0;
+  word-break: break-word;
+}
+
+th {
+  background: #808080;
+  color: #fff;
+}
+
+#env th {
+  width: 30%;
+  background: none;
+  color: inherit;
+}
+
+#voices tbody tr:hover {
+  background: #f0f0f0;
+}
+
+#voices .play {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent url(../icons/play.svg) center / contain no-repeat;
+  filter: invert(1);
+  cursor: pointer;
+}
+
+#voices .play:hover {
+  background-color: #808080;
+}
+
+.warn {
+  color: #b00020;
+}
+
+#log {
+  max-height: 180px;
+  overflow-y: auto;
+  margin: 0;
+  font-size: 9pt;
+  white-space: pre-wrap;
+}

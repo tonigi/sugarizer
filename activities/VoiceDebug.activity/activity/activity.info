@@ -1,0 +1,6 @@
+[Activity]
+name = Voice Debug
+activity_version = 1
+bundle_id = org.sugarlabs.VoiceDebug
+exec = sugar-activity-web
+icon = activity-icon

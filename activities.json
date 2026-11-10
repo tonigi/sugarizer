@@ -62,5 +62,6 @@
 	{"id": "org.sugarlabs.TypingTutor", "name": "Typing Tutor", "version": 1, "directory": "activities/TypingTutor.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.ChartActivity", "name": "Chart", "version": 1, "directory": "activities/Chart.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Stickman", "name": "Stickman", "version": 1, "directory": "activities/Stickman.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-	{"id": "org.sugarlabs.ColorLab","name": "ColorLab","version": 1,"directory": "activities/ColorLab.activity","icon": "activity/activity-icon.svg","favorite": true,"activityId": null}
+	{"id": "org.sugarlabs.ColorLab","name": "ColorLab","version": 1,"directory": "activities/ColorLab.activity","icon": "activity/activity-icon.svg","favorite": true,"activityId": null},
+	{"id": "org.sugarlabs.VoiceDebug", "name": "Voice Debug", "version": 1, "directory": "activities/VoiceDebug.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null}
 ]
