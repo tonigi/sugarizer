@@ -14,6 +14,19 @@
   background-image: url(../lib/sugar-web/graphics/icons/actions/dialog-ok.svg);
 }
 
+#level-easy {
+  background-image: url(../icons/level-easy.svg);
+  margin-left: 30px;
+}
+
+#level-medium {
+  background-image: url(../icons/level-medium.svg);
+}
+
+#level-hard {
+  background-image: url(../icons/level-hard.svg);
+}
+
 body {
         height: 100vh;
 }

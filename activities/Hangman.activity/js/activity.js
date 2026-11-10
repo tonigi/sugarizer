@@ -1,26 +1,33 @@
-define(["sugar-web/activity/activity", "activity/speech"], function (activity, speech) {
+define(["sugar-web/activity/activity", "sugar-web/env", "activity/speech"], function (activity, env, speech) {
 
-        var words = [];
+        var wordLists = {};
+        var level = 'easy';
+        var LEVELS = ['easy', 'medium', 'hard'];
         var word, guessed, attempts;
 
         function loadWords(callback) {
             var lang = (navigator.language || 'en').substr(0,2).toLowerCase();
-            var file = (lang === 'it') ? 'words_it.txt' : 'words_en.txt';
+            var file = (lang === 'it') ? 'words_it.json' : 'words_en.json';
             var xhr = new XMLHttpRequest();
             xhr.open('GET', file, true);
             xhr.onload = function () {
-                if (xhr.status === 200) {
-                    words = xhr.responseText.split('\n').filter(function(word) {
-                        return word.length > 0;
-                    });
+                // status is 0 for file:// URLs (Electron/Cordova)
+                if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText)) {
+                    wordLists = JSON.parse(xhr.responseText);
                     callback();
                 }
             };
             xhr.send();
         }
 
-
-        var word, guessed, attempts;
+        function setLevel(newLevel, restart) {
+            if (LEVELS.indexOf(newLevel) === -1) return;
+            level = newLevel;
+            LEVELS.forEach(function (l) {
+                document.getElementById('level-' + l).classList.toggle('active', l === level);
+            });
+            if (restart && wordLists[level]) newGame();
+        }
 
         function updateDisplay() {
                 var display = word.split('').map(function (ch) {
@@ -46,6 +53,7 @@ define(["sugar-web/activity/activity", "activity/speech"], function (activity, s
         }
 
         function newGame() {
+                var words = wordLists[level];
                 word = words[Math.floor(Math.random()*words.length)];
                 guessed = [];
                 attempts = 6;
@@ -75,6 +83,25 @@ define(["sugar-web/activity/activity", "activity/speech"], function (activity, s
                 document.getElementById('espeak-btn').addEventListener('click', function() {
                   var espeakOn = speech.toggleEngine();
                   document.getElementById('espeak-btn').style.backgroundColor = espeakOn ? '#f00' : '#fff';
+                });
+                LEVELS.forEach(function (l) {
+                  document.getElementById('level-' + l).addEventListener('click', function () {
+                    setLevel(l, true);
+                  });
+                });
+                document.getElementById('stop-button').addEventListener('click', function () {
+                  activity.getDatastoreObject().setDataAsText(JSON.stringify({ level: level }));
+                  activity.getDatastoreObject().save();
+                });
+                setLevel(level, false);
+                env.getEnvironment(function (err, environment) {
+                  if (environment && environment.objectId) {
+                    activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
+                      if (!error && data) {
+                        try { setLevel(JSON.parse(data).level, true); } catch (e) {}
+                      }
+                    });
+                  }
                 });
                 window.addEventListener('keydown', function(e) {
                         guess(e.key);
