@@ -1,0 +1,15 @@
+<?xml version="1.0" ?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg enable-background="new 0 0 50 50" height="50px" version="1.1" viewBox="0 0 50 50" width="50px" x="0px" y="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+  <rect x="5" y="8" width="40" height="34" rx="4" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/>
+  <g fill="&fill_color;" stroke="&stroke_color;" stroke-width="2.5">
+    <circle cx="14" cy="17" r="3.6"/><circle cx="25" cy="17" r="3.6"/><circle cx="36" cy="17" r="3.6"/>
+    <circle cx="14" cy="25" r="3.6"/><circle cx="25" cy="25" r="3.6"/><circle cx="36" cy="25" r="3.6"/>
+    <circle cx="14" cy="33" r="3.6"/><circle cx="25" cy="33" r="3.6"/><circle cx="36" cy="33" r="3.6"/>
+  </g>
+  <g stroke="&stroke_color;" stroke-width="2.5">
+    <circle cx="14" cy="33" r="3.6" fill="&stroke_color;"/><circle cx="25" cy="25" r="3.6" fill="&stroke_color;"/><circle cx="36" cy="17" r="3.6" fill="&stroke_color;"/>
+  </g>
+</svg>

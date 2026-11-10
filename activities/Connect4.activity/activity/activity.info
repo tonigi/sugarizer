@@ -1,0 +1,6 @@
+[Activity]
+name = Connect 4
+activity_version = 1
+bundle_id = org.sugarlabs.Connect4Activity
+exec = sugar-activity-web
+icon = activity-icon
