@@ -69,7 +69,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/speech"], func
                 if (!letter.match(/^[A-Z]$/) || guessed.indexOf(letter) !== -1) return;
                 guessed.push(letter);
                 if (word.indexOf(letter) === -1) attempts--;
-                speech.speak(letter);
+                speech.speak(letter.toLowerCase());
                 updateDisplay();
                 checkResult();
         }
